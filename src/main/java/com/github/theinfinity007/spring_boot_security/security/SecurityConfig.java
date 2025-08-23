@@ -32,15 +32,17 @@ public class SecurityConfig {
     // Configure spring boot security to use the custom login form
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(configurer -> configurer
-                .anyRequest().authenticated()
-        )
-                .formLogin(form ->
-                        form
+        http
+                .authorizeHttpRequests(configurer -> configurer
+                        .anyRequest()
+                        .authenticated())
+                .formLogin(form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/authenticate")    // No need to create controller mapping for this endpoint, spring will handle itself
-                                .permitAll()
-                );
+                        .permitAll())
+                .logout(logout -> logout.permitAll())  // Enable logout support and allow anyone (authenticated or not) to access the logout endpoint.
+        ;
+
 
         return http.build();
     }

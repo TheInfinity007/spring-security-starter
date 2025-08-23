@@ -6,8 +6,13 @@
 </head>
 <body>
 
-<h2>The Infinity Home Page - Yoohoo!</h2>
-<hr>
-Welcome to the Coding World!
+    <h2>The Infinity Home Page - Yoohoo!</h2>
+    <hr/>
+    <p>Welcome to the Coding World!</p>
+
+    <!--  Logout button  -->
+    <form action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="logout"/>
+    </form>
 </body>
 </html>
