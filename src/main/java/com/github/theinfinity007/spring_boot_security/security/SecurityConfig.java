@@ -44,6 +44,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/authenticate")    // No need to create controller mapping for this endpoint, spring will handle itself
                         .permitAll())
                 .logout(logout -> logout.permitAll())  // Enable logout support and allow anyone (authenticated or not) to access the logout endpoint.
+                .exceptionHandling(configurer -> configurer.accessDeniedPage("/access-denied"))
         ;
 
 

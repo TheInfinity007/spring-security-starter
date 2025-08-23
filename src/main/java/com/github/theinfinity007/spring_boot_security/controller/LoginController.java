@@ -21,4 +21,10 @@ public class LoginController {
     public String showSystems(){
         return "systems";
     }
+
+    // Route for the Customer access denied page, 403
+    @GetMapping("/access-denied")
+    public String showAccessDenied(){
+        return "access-denied";
+    }
 }
