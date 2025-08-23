@@ -20,8 +20,10 @@
         Roles: <span>[[${#authentication.authorities}]]</span>
     </p>
 
+    <!--  Link to point to /leaders. For the managers  -->
     <p>
-
+        <a th:href="@{/leaders}">Leadership Meeting</a>
+        (Only for Manager peeps)
     </p>
 
     <!--  Logout button  -->

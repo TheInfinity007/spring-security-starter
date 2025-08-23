@@ -11,4 +11,9 @@ public class LoginController {
 //        return "plain-login";
         return "fancy-login";
     }
+
+    @GetMapping("/leaders")
+    public String showLeaders(){
+        return "leaders";
+    }
 }

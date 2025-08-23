@@ -34,8 +34,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
-                        .anyRequest()
-                        .authenticated())
+                        .requestMatchers("/").hasRole("EMPLOYEE")
+                        .requestMatchers("/leaders/**").hasRole("MANAGER")
+                        .requestMatchers("/systems/**").hasRole("ADMIN")
+                        .requestMatchers(".well-known/**").permitAll()
+                        .anyRequest().authenticated())
                 .formLogin(form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/authenticate")    // No need to create controller mapping for this endpoint, spring will handle itself
