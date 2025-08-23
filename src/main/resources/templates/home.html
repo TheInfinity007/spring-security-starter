@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>The Infinity Home Page</title>
@@ -9,6 +10,19 @@
     <h2>The Infinity Home Page - Yoohoo!</h2>
     <hr/>
     <p>Welcome to the Coding World!</p>
+
+    <hr>
+
+    <!--  Display username and role  -->
+    <p>
+        User: <span>[[${#authentication.principal.username}]]</span>
+        <br><br>
+        Roles: <span>[[${#authentication.authorities}]]</span>
+    </p>
+
+    <p>
+
+    </p>
 
     <!--  Logout button  -->
     <form action="#" th:action="@{/logout}" method="POST">
