@@ -16,4 +16,9 @@ public class LoginController {
     public String showLeaders(){
         return "leaders";
     }
+
+    @GetMapping("/systems")
+    public String showSystems(){
+        return "systems";
+    }
 }

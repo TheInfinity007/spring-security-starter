@@ -20,11 +20,21 @@
         Roles: <span>[[${#authentication.authorities}]]</span>
     </p>
 
+    <hr>
+
     <!--  Link to point to /leaders. For the managers  -->
     <p>
         <a th:href="@{/leaders}">Leadership Meeting</a>
         (Only for Manager peeps)
     </p>
+
+    <!--  Link to point to /systems. For the managers  -->
+    <p>
+        <a th:href="@{/systems}">IT Systems Meeting</a>
+        (Only for Admin peeps)
+    </p>
+
+    <hr>
 
     <!--  Logout button  -->
     <form action="#" th:action="@{/logout}" method="POST">
