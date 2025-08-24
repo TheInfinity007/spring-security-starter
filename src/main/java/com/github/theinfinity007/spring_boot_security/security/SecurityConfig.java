@@ -1,10 +1,13 @@
 package com.github.theinfinity007.spring_boot_security.security;
 
+import com.github.theinfinity007.spring_boot_security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -16,12 +19,24 @@ import javax.sql.DataSource;
 public class SecurityConfig {
 
     @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(UserService userService){
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider(userService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
+    }
+
+    /*
+    @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource){
 
-        /*
         // automatically uses the users and authorities table by default
-        return new JdbcUserDetailsManager(dataSource);
-         */
+        // return new JdbcUserDetailsManager(dataSource);
+
 
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
 
@@ -33,6 +48,7 @@ public class SecurityConfig {
 
         return jdbcUserDetailsManager;
     }
+    */
 
     // Configure spring boot security to use the custom login form
     @Bean

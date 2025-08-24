@@ -17,4 +17,7 @@ logging:
         jdbc:
           core: TRACE
 
+      # add logging configs to display SQL statements and values as well with the help of jdbc bind
+      hibernate:
+        SQL: debug
 
