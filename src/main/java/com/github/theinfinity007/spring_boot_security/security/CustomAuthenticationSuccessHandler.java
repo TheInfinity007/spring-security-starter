@@ -1,4 +1,4 @@
-package com.github.theinfinity007.spring_boot_security.controller;
+package com.github.theinfinity007.spring_boot_security.security;
 
 import com.github.theinfinity007.spring_boot_security.entity.User;
 import com.github.theinfinity007.spring_boot_security.service.UserService;

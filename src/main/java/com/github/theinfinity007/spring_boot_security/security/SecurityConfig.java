@@ -1,20 +1,12 @@
 package com.github.theinfinity007.spring_boot_security.security;
 
-import com.github.theinfinity007.spring_boot_security.controller.CustomAuthenticationSuccessHandler;
 import com.github.theinfinity007.spring_boot_security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
@@ -59,8 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/").hasRole("EMPLOYEE")
                         .requestMatchers("/leaders/**").hasRole("MANAGER")
                         .requestMatchers("/systems/**").hasRole("ADMIN")
-                        .requestMatchers(".well-known/**").permitAll()
-                        .requestMatchers("/register/showRegistrationForm").permitAll()
+                        .requestMatchers("/.well-known/**").permitAll()
+                        .requestMatchers("/register/showRegistrationForm", "/register/processRegistrationForm", "register/registration-confirmation").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
