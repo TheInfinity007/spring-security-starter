@@ -1,5 +1,6 @@
 package com.github.theinfinity007.spring_boot_security.security;
 
+import com.github.theinfinity007.spring_boot_security.controller.CustomAuthenticationSuccessHandler;
 import com.github.theinfinity007.spring_boot_security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,17 +53,19 @@ public class SecurityConfig {
 
     // Configure spring boot security to use the custom login form
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/").hasRole("EMPLOYEE")
                         .requestMatchers("/leaders/**").hasRole("MANAGER")
                         .requestMatchers("/systems/**").hasRole("ADMIN")
                         .requestMatchers(".well-known/**").permitAll()
+                        .requestMatchers("/register/showRegistrationForm").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/authenticate")    // No need to create controller mapping for this endpoint, spring will handle itself
+                        .loginPage("/login")
+                        .loginProcessingUrl("/authenticate")    // No need to create controller mapping for this endpoint, spring will handle itself
+                        .successHandler(customAuthenticationSuccessHandler) // Execute customAuthenticationSuccessHandler for each successful login
                         .permitAll())
                 .logout(logout -> logout.permitAll())  // Enable logout support and allow anyone (authenticated or not) to access the logout endpoint.
                 .exceptionHandling(configurer -> configurer.accessDeniedPage("/access-denied"))
