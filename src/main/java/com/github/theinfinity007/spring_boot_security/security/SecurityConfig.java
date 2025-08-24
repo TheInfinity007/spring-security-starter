@@ -17,8 +17,21 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource){
+
+        /*
         // automatically uses the users and authorities table by default
         return new JdbcUserDetailsManager(dataSource);
+         */
+
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        // query to retrieve a user by username
+        jdbcUserDetailsManager.setUsersByUsernameQuery("select user_id, pwd, enabled from members where user_id=?");
+
+        // query to retrieve the authorities/roles by username
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select user_id, role from roles where user_id=?");
+
+        return jdbcUserDetailsManager;
     }
 
     // Configure spring boot security to use the custom login form
